@@ -1,4 +1,5 @@
 const request = require('request-promise-native');
+const retry = require('@lifeomic/attempt');
 const SNYK_API_BASE = 'https://snyk.io/api/v1/';
 
 class SnykClient {
@@ -96,10 +97,25 @@ class SnykClient {
    * @returns {Object} projects - object representing the list of projects
    */
   async listAllProjects(orgId) { 
-    return this.snykRequest({
-      method: 'GET',
-      uri: `org/${orgId}/projects`
-    });
+    return retry(
+      async () => {
+        return this.snykRequest({
+          method: 'GET',
+          uri: `org/${orgId}/projects`
+        });
+      },
+      {
+        delay: 5000,
+        factor: 1.2,
+        maxAttempts: 15,
+        handleError(err, context) {
+          const code = err.statusCode;
+          if (code !== 429 && code !== 500 && code !== 502) {
+            context.abort();
+          }
+        },
+      },
+    );
   }
 
 
@@ -123,11 +139,26 @@ class SnykClient {
    * @returns {Object} testResult - object representing the list of issues
    */
   async listIssues (orgId, projectId, filters = {}) {
-    return this.snykRequest({
-      method: 'POST',
-      uri: `/org/${orgId}/project/${projectId}/issues`,
-      body: filters
-    });
+    return retry(
+      async () => {
+        return this.snykRequest({
+          method: 'POST',
+          uri: `/org/${orgId}/project/${projectId}/issues`,
+          body: filters
+        });
+      },
+      {
+        delay: 5000,
+        factor: 1.2,
+        maxAttempts: 15,
+        handleError(err, context) {
+          const code = err.statusCode;
+          if (code !== 429 && code !== 500 && code !== 502) {
+            context.abort();
+          }
+        },
+      },
+    );
   }
 
 
