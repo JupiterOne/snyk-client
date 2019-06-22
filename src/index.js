@@ -149,10 +149,11 @@ class SnykClient {
       },
       {
         delay: 5000,
-        factor: 1.2,
+        factor: 2,
         maxAttempts: 15,
         handleError(err, context) {
           const code = err.statusCode;
+          console.log({err});
           if (code !== 429 && code !== 500 && code !== 502) {
             context.abort();
           }
