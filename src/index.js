@@ -1,5 +1,5 @@
 const request = require('request-promise-native');
-const retry = require('@lifeomic/attempt');
+const { retry } = require('@lifeomic/attempt');
 const SNYK_API_BASE = 'https://snyk.io/api/v1/';
 
 class SnykClient {
@@ -149,7 +149,7 @@ class SnykClient {
       },
       {
         delay: 5000,
-        factor: 2,
+        factor: 1.2,
         maxAttempts: 15,
         handleError(err, context) {
           const code = err.statusCode;
