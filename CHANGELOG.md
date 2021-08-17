@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added the `List All Aggregated Issues` endpoint, and deprecated the `List Issues` endpoint.
+
 ### Fixed
 
 - Retry all `5xx` errors including `503`, not just `500` and `502`.
