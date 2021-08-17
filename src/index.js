@@ -140,6 +140,7 @@ class SnykClient {
    * @param {string} projectId - Project ID
    * @param {Object} filters - Object with filters
    * @returns {Object} testResult - object representing the list of issues
+   * @deprecated Please use `listAggregatedIssues` per Snyk API Docs: https://snyk.docs.apiary.io/#reference/projects/project-issues/list-all-issues-deprecated
    */
   async listIssues (orgId, projectId, filters = {}) {
     return retry(
@@ -147,6 +148,38 @@ class SnykClient {
         return this.snykRequest({
           method: 'POST',
           uri: `/org/${orgId}/project/${projectId}/issues`,
+          body: filters
+        });
+      },
+      {
+        delay: 5000,
+        factor: 1.2,
+        maxAttempts: this.retries,
+        handleError(err, context) {
+          const code = err.statusCode;
+          console.log({err});
+          if (code !== 429 || code >= 500) {
+            context.abort();
+          }
+        },
+      },
+    );
+  }
+
+
+  /**
+   * "List All Aggregated Issues"
+   * @param {string} orgId - Organization ID
+   * @param {string} projectId - Project ID
+   * @param {Object} filters - Object with filters
+   * @returns {Object} object representing the list of issues
+   */
+   async listAggregatedIssues (orgId, projectId, filters = {}) {
+    return retry(
+      async () => {
+        return this.snykRequest({
+          method: 'POST',
+          uri: `/org/${orgId}/project/${projectId}/aggregated-issues`,
           body: filters
         });
       },
