@@ -3,8 +3,11 @@
   "version": "1.0.2",
   "description": "A node.js client to interact with the Snyk api",
   "main": "src/index.js",
-  "scripts": {},
-  "author": "LifeOmic Security <infosec@lifeomic.com>",
+  "scripts": {
+    "test": "echo \"No tests\"",
+    "build": "echo \"No build\""
+  },
+  "author": "JupiterOne",
   "license": "",
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
