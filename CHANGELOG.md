@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-08-17
+
 ### Added
 
 - Added the `List All Aggregated Issues` endpoint, and deprecated the `List Issues` endpoint.
