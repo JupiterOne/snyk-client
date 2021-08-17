@@ -6,13 +6,16 @@ class SnykClient {
   /**
    * @constructor
    * @param {string} apiKey - Snyk API key
+   * @param {Object} [options]
+   * @param {number} [options.retries=5]
    */
-  constructor (apiKey) {
+  constructor (apiKey, options) {
     if (!apiKey) {
       throw new Error('API key must be defined');
     }
 
     this.apiKey = apiKey;
+    this.retries = options?.retries || 5;
 
     this._request = request.defaults({
       baseUrl: SNYK_API_BASE,
@@ -107,10 +110,10 @@ class SnykClient {
       {
         delay: 5000,
         factor: 1.2,
-        maxAttempts: 15,
+        maxAttempts: this.retries,
         handleError(err, context) {
           const code = err.statusCode;
-          if (code !== 429 && code !== 500 && code !== 502) {
+          if (code !== 429 || code >= 500) {
             context.abort();
           }
         },
@@ -150,11 +153,11 @@ class SnykClient {
       {
         delay: 5000,
         factor: 1.2,
-        maxAttempts: 15,
+        maxAttempts: this.retries,
         handleError(err, context) {
           const code = err.statusCode;
           console.log({err});
-          if (code !== 429 && code !== 500 && code !== 502) {
+          if (code !== 429 || code >= 500) {
             context.abort();
           }
         },
