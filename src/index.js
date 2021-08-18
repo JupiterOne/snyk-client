@@ -15,7 +15,7 @@ class SnykClient {
     }
 
     this.apiKey = apiKey;
-    this.retries = options?.retries || 5;
+    this.retries = (options && options.retries) || 5;
 
     this._request = request.defaults({
       baseUrl: SNYK_API_BASE,

@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Change unsuppored optional chaining from `options?.retries` to `(options && options.retries)`
+
 ## [1.1.0] - 2021-08-17
 
 ### Added
