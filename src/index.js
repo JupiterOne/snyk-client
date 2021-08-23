@@ -113,7 +113,7 @@ class SnykClient {
         maxAttempts: this.retries,
         handleError(err, context) {
           const code = err.statusCode;
-          if (code !== 429 || code >= 500) {
+          if (code < 500 && code !== 429) {
             context.abort();
           }
         },
@@ -157,7 +157,7 @@ class SnykClient {
         maxAttempts: this.retries,
         handleError(err, context) {
           const code = err.statusCode;
-          if (code !== 429 || code >= 500) {
+          if (code < 500 && code !== 429) {
             context.abort();
           }
         },
@@ -188,7 +188,7 @@ class SnykClient {
         maxAttempts: this.retries,
         handleError(err, context) {
           const code = err.statusCode;
-          if (code !== 429 || code >= 500) {
+          if (code < 500 && code !== 429) {
             context.abort();
           }
         },

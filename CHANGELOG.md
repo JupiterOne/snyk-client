@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.2] - 2021-08-23
+
+### Fixed 
+
+- Retry all `5xx` errors.
+
 ## [1.1.1] - 2021-08-18
 
 ### Fixed
