@@ -2,13 +2,17 @@
   "name": "@jupiterone/snyk-client",
   "version": "1.1.2",
   "description": "A node.js client to interact with the Snyk api",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JupiterOne/snyk-client"
+  },
+  "license": "",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"No tests\"",
     "build": "echo \"No build\""
   },
   "author": "JupiterOne",
-  "license": "",
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
     "request": "^2.88.0",

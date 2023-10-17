@@ -1,0 +1,12 @@
+openapi: 3.0.1
+info:
+  title: '@jupiterone/snyk-client'
+  description: A node.js client to interact with the Snyk api
+  x-cortex-git:
+    github:
+      repository: JupiterOne/snyk-client
+  x-cortex-owners:
+    - type: group
+      name: JupiterOne/integrations
+  x-cortex-service-groups: tier-4
+  x-cortex-tag: '@jupiterone/snyk-client'
